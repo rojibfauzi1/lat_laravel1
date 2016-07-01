@@ -229,3 +229,5 @@ Route::get('article',array('as' => 'article','uses' => 'ArticleController@index'
 Route::resource('author','AuthorController');
 
 Route::resource('article','ArticleController');
+
+Route::get('hapus_article/{id}',array('uses'=>'ArticleController@destroy'));

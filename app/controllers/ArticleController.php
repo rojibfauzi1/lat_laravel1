@@ -65,9 +65,16 @@ class ArticleController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
+
+
 	public function edit($id)
 	{
-		//
+		$data['data_article'] = Article::find($id);
+		
+		
+		$data['authors'] = DB::table('authors')->orderBy('id','DESC')->lists('username','id');
+		$data['id_author'] = \DB::table('authors')->lists('id');
+		return View::make('article.edit',$data);
 	}
 
 
@@ -79,7 +86,15 @@ class ArticleController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		$article = Article::find($id);
+		$article->judul = Input::get('judul');
+		$article->body = Input::get('isi');
+		$article->author_id = Input::get('author_id');
+		$article->save();
+
+		return Redirect::to('article');
+
+
 	}
 
 
@@ -91,7 +106,10 @@ class ArticleController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		$article = Article::find($id);
+		$article->delete();
+
+		return Redirect::to('article');
 	}
 
 
